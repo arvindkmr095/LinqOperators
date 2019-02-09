@@ -7,7 +7,20 @@ namespace LinqOperators
 {
     public class Program
     {
-        #region Filtering
+        internal class Employee
+        {
+            public int Id { get; set; }
+            public string EmployeeName { get; set; }
+            public int DepartmentId { get; set; }
+        }
+
+        internal class Depatrtment
+        {
+            public int Id { get; set; }
+            public string DepartmentName { get; set; }
+        }
+
+        #region Filtering Operators
         /// <summary>
         /// Two types of Filter operators are available
         /// 1. Where operator
@@ -29,7 +42,7 @@ namespace LinqOperators
 
         #endregion
 
-        #region Sorting
+        #region Sorting Operators
         /// <summary>
         /// There are three types of Sorting operators
         /// 1. OrderBy and OrderByDescending
@@ -48,7 +61,7 @@ namespace LinqOperators
         }
         #endregion
 
-        #region Sets
+        #region Sets Operators
         /// <summary>
         /// Four types of set operators are available
         /// 1. Distinct : Remove duplicates items from sequence
@@ -91,7 +104,7 @@ namespace LinqOperators
         }
         #endregion
 
-        #region Quantifiers
+        #region Quantifiers Operators
 
         /// <summary>
         /// There are three types of quantifiers in Linq.
@@ -116,7 +129,7 @@ namespace LinqOperators
 
         #endregion
 
-        #region Projection
+        #region Projection Operators
 
         /// <summary>
         /// There are two types of projection operators
@@ -137,7 +150,7 @@ namespace LinqOperators
         }
         #endregion
 
-        #region Partitioning
+        #region Partitioning Operators
 
         /// <summary>
         /// There are two types of partitioning operators
@@ -157,7 +170,7 @@ namespace LinqOperators
         }
         #endregion
 
-        #region Joining
+        #region Joining Operators
 
         /// <summary>
         /// Two types of joining available in Linq
@@ -205,22 +218,10 @@ namespace LinqOperators
 
         }
 
-        internal class Employee
-        {
-            public int Id { get; set; }
-            public string EmployeeName { get; set; }
-            public int DepartmentId { get; set; }
-        }
-
-        internal class Depatrtment
-        {
-            public int Id { get; set; }
-            public string DepartmentName { get; set; }
-        }
+        
         #endregion
-
-
-        #region Grouping
+     
+        #region Grouping Operators
         /// <summary>
         /// Two type of grouping operators are available in Linq
         /// 1. GroupBy
@@ -247,8 +248,80 @@ namespace LinqOperators
         }
         #endregion
 
+        #region Generaion Operators
+        /// <summary>
+        /// Four type of Generation operators are Linq
+        /// 1. DefaultIfEmpty()
+        /// 2. Empty()
+        /// 3. Range()
+        /// 4. Repeat()
+        /// </summary>
+        public static void Generation()
+        {
+            // DefaultIfEmpty(): it is extension method that is found in System.Linq.Enumerable  
+            IList<string> strList = new List<string>();
+            var default1 = strList.DefaultIfEmpty();  // Return single string defaul value: null
+            var default2 = strList.DefaultIfEmpty("None"); // Return single string default value : None
+
+            // Range(): It is not extension method. it is static method and found in System.Linq.Enumerable
+            //  Generates a sequence of integral numbers within a specified range.       
+            var range1 = Enumerable.Range(5, 5); // Returns IEnumerable<Int> : {5,6,7,8,9}
+
+            // Empty(): It is generic static method and found in System.Linq.Enumerable.
+            Enumerable.Empty<string>();    // Returns IEnumerable<string> empty object;
+
+            // Repeat()   
+            String[] arrString = new string[5] { "A", "B", "C", "D", "E" };
+            var repeatObject = Enumerable.Repeat<string[]>(arrString, 5);
+        }
+
+        #endregion
+
+        #region Equality Operator
+        /// <summary>
+        /// SequenceEqual operator is only one Equality operator in LINQ.
+        /// That is used to compare elements order in two sequences.
+        /// </summary>
+        public static void Equality()
+        {
+            int[] arr1 = { 1, 2, 3 };
+            int[] arr2 = { 2, 3, 1 };
+
+            Console.WriteLine(arr1.SequenceEqual(arr2));  // Return False.
+        }
+        #endregion
+
+        #region Elements Operators
+        /// <summary>
+        /// Four types of Elements operators in Linq
+        /// 1. ElementAt and ElementAtOrDefault: Returns the element at specified index.
+        /// 2. First and FirstOrDefault : Returns first element of collection.
+        /// 3. Last and LastOrDefault : Resturns Last element of collection.
+        /// 4. Single and SingleOrDefault : return single element of collection.
+        /// </summary>
+        public static void Elements()
+        {
+            string[] empty = { };
+            string[] notEmpty = { "One", "Two", "Three" };
+
+            empty.ElementAt(1);                 // Exception: IndexOutOfRangeException
+            empty.ElementAtOrDefault(1);        // Return null value of default string 
+            notEmpty.ElementAt(1);              // Return "One"
+            notEmpty.ElementAtOrDefault(1);     // Return "One"
+
+            empty.First();                      // Exception: InvalidOperationException (Sequence contain no elemenet)
+            empty.FirstOrDefault();             // Return null
+            notEmpty.First();                   // Return "One"
+            notEmpty.FirstOrDefault();          // Return "One"
+
+            empty.Single();                     // Exception: InvalidOperationException (Sequence contain no elemenet)
+            empty.SingleOrDefault();            // Return :null
+            notEmpty.Single();                  // Exception: InvalidOperationException (Sequence contain more than one elemenet)
+            notEmpty.SingleOrDefault();         // Exception: InvalidOperationException (Sequence contain more than one elemenet)
 
 
+        }
+        #endregion
         static void Main(string[] args)
         {
             // Filtering();
@@ -259,6 +332,9 @@ namespace LinqOperators
             // Partitioning();
             // Joining();
             // Grouping();
+            // Generation();
+            // Equality();
+            // Elements();
             Console.ReadKey();
         }
     }
