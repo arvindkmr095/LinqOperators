@@ -1,5 +1,4 @@
-public class Program
-    {
+
         #region Filtering
         /// <summary>
         /// Two types of Filter operators are available
@@ -210,7 +209,7 @@ public class Program
             public int Id { get; set; }
             public string DepartmentName { get; set; }
         }
-        #endregion
+    
 
 
         #region Grouping
@@ -238,20 +237,9 @@ public class Program
                             .ToLookup(e => e.DepartmentId)
                             .Select(seq => new { DeptId = seq.Key, Employees = seq });
         }
-        #endregion
+     
 
 
 
-        static void Main(string[] args)
-        {
-            // Filtering();
-            // Sorting();
-            // Sets();
-            // Quanitifiers();
-            // Projection();
-            // Partitioning();
-            // Joining();
-            // Grouping();
-            Console.ReadKey();
-        }
-    }
+     
+ 
