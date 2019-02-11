@@ -218,9 +218,9 @@ namespace LinqOperators
 
         }
 
-        
+
         #endregion
-     
+
         #region Grouping Operators
         /// <summary>
         /// Two type of grouping operators are available in Linq
@@ -322,6 +322,53 @@ namespace LinqOperators
 
         }
         #endregion
+
+        #region Conversion Operators
+        public static void Conversion()
+        {
+            var cityList = new string[] { "Delhi", "Mumbai", "Calcutta", "Chennai" };
+
+            // AsEnumerable
+            var objCityAsEnumerable = cityList.AsEnumerable<string>();
+
+            // AsQueryable
+            var objCityAsQueryable = cityList.AsQueryable<string>();
+
+            // ToList
+            var objCityList = cityList.ToList();
+
+            // ToDictionary
+            var objCityDictionary = cityList.ToDictionary(c => c);
+
+            // ToLookup
+            var objCityListLookup = cityList.ToLookup(c => c);
+
+            // ToArray
+            var objCityArray = cityList.ToArray();
+
+            //OfType
+            var objCitylistOfStringType = cityList.OfType<string>();
+
+            // Cast
+            var objCityListCast = cityList.Cast<string>();
+
+        }
+        #endregion
+
+        #region Concatentation Operators 
+        /// <summary>
+        /// Two types of concatenation operators
+        /// 1. Concat   : return all with duplicacy
+        /// 2. Union   : return all without duplicacy
+        /// </summary>
+        public static void Concatenation()
+        {
+            var cityList1 = new string[] { "Delhi", "Mumbai", "Calcutta", "Chennai" };
+            var cityList2 = new string[] { "Delhi", "Lucknow", "Patna", "Chennai" };
+            var concatCity = cityList1.Concat(cityList2); // Return all city string array into single string array with duplicacy
+
+        }
+        #endregion
         static void Main(string[] args)
         {
             // Filtering();
@@ -335,6 +382,7 @@ namespace LinqOperators
             // Generation();
             // Equality();
             // Elements();
+            // Conversion();
             Console.ReadKey();
         }
     }
